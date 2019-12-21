@@ -20,6 +20,8 @@ import 'package:flutter_redux_skeleton/src/utils/app_router.dart';
 import 'package:flutter_redux_skeleton/src/utils/http.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   AppLogger()..isDebug = true;
 
   final store = Store<AppState>(

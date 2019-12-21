@@ -32,12 +32,8 @@ class Http {
 
     store.onChange.listen((state) {
       final nextToken = state.authState.token;
-      if (nextToken != token) {
-        if (nextToken == null) {
-          token = '';
-        } else {
-          token = nextToken;
-        }
+      if (nextToken != null && nextToken != token) {
+        token = nextToken;
       }
     });
   }
