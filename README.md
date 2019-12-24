@@ -14,15 +14,15 @@ Flutter and Redux skeleton mobile application.
 ## Run:
 - ### Production
     ```
-    flutter run --target lib/main_production --flavor production
+    flutter run --target lib/main_production.dart --flavor production
     ```
 - ### Development
     ```
-    flutter run --target lib/main_development --flavor development
+    flutter run --target lib/main_development.dart --flavor development
     ```
 - ### Development-Production
     ```
-    flutter run --target lib/main_devp --flavor devp
+    flutter run --target lib/main_devp.dart --flavor devp
     ```
 
 ## VS Code configuring
