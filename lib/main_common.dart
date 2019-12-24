@@ -23,6 +23,8 @@ Future mainCommon({
   @required bool isDebug,
   @required String host,
 }) async {
+  print('FLAVOR: $appFlavor');
+  print('isDebug: $isDebug');
   WidgetsFlutterBinding.ensureInitialized();
 
   AppLogger()..isDebug = isDebug;
@@ -31,7 +33,9 @@ Future mainCommon({
   final store = Store<AppState>(
     appStateReducer,
     initialState: AppState.initial(),
-    middleware: [thunkMiddleware, LoggingMiddleware.printer()],
+    middleware: isDebug
+        ? [thunkMiddleware, LoggingMiddleware.printer()]
+        : [thunkMiddleware],
   );
 
   FlutterError.onError = (FlutterErrorDetails details) {
@@ -55,7 +59,7 @@ Future mainCommon({
   await runZoned<Future<void>>(() async {
     await SharedPreferences.getInstance().then((prefs) {
       // init dio params and headers
-      Http()..init(store, prefs);
+      Http()..init(store, prefs, isDebug);
       // init auth repository
       final authRepository = AuthRepository(
         AuthStorageProvider(prefs),
