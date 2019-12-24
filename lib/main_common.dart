@@ -23,8 +23,6 @@ Future mainCommon({
   @required bool isDebug,
   @required String host,
 }) async {
-  print('FLAVOR: $appFlavor');
-  print('isDebug: $isDebug');
   WidgetsFlutterBinding.ensureInitialized();
 
   AppLogger()..isDebug = isDebug;
