@@ -1,23 +1,34 @@
 class UrlProvider {
-  static const String base = 'http://localhost:8160/api/v1';
+  static final UrlProvider _singleton = UrlProvider._internal();
 
-  static String get sign {
+  factory UrlProvider() => _singleton;
+
+  UrlProvider._internal();
+
+  String _host;
+  set host(String host) {
+    _host = host;
+  }
+
+  String get base => '$_host/api/v1';
+
+  String get sign {
     return '$base/users/sign';
   }
 
-  static String get profile {
+  String get profile {
     return '$base/users/self';
   }
 
-  static String get ticketList {
+  String get ticketList {
     return '$base/tickets';
   }
 
-  static String ticket(String id) {
+  String ticket(String id) {
     return '$base/tickets/$id';
   }
 
-  static String ticketBookmark(String id) {
+  String ticketBookmark(String id) {
     return '$base/tickets/$id/bookmark';
   }
 }

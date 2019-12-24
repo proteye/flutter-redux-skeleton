@@ -20,7 +20,7 @@ class Http {
 
   Http._internal();
 
-  void init(Store store, SharedPreferences prefs) {
+  void init(Store store, SharedPreferences prefs, bool isDebug) {
     assert(store != null && prefs != null);
 
     _prefs = prefs;
@@ -28,7 +28,9 @@ class Http {
 
     dio = Dio(_options);
     dio.interceptors.add(_authInterceptor());
-    dio.interceptors.add(logger);
+    if (isDebug) {
+      dio.interceptors.add(logger);
+    }
 
     store.onChange.listen((state) {
       final nextToken = state.authState.token;

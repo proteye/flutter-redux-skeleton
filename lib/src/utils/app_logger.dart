@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'app_errors.dart';
 
 class AppLogger {
@@ -18,5 +20,10 @@ class AppLogger {
       print(error);
       return;
     }
+
+    Zone.current?.handleUncaughtError(
+      '${error.code}: ${error.description}',
+      error.stack ?? StackTrace.current,
+    );
   }
 }

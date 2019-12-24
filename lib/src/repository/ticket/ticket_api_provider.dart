@@ -14,7 +14,7 @@ class TicketApiProvider extends BaseApiProvider {
   }) async {
     try {
       final response = await dio.get(
-        UrlProvider.ticketList,
+        UrlProvider().ticketList,
         queryParameters: {'skip': offset, 'limit': limit, 'fields': fields},
       );
       return TicketListResponse.fromJson(response.data['result']);
@@ -29,7 +29,7 @@ class TicketApiProvider extends BaseApiProvider {
   }) async {
     try {
       final response = await dio.get(
-        UrlProvider.ticket(id),
+        UrlProvider().ticket(id),
         queryParameters: {'fields': fields},
       );
       return TicketResponse.fromJson(response.data['result']);
@@ -44,7 +44,7 @@ class TicketApiProvider extends BaseApiProvider {
   }) async {
     try {
       final response = await dio.put(
-        UrlProvider.ticketBookmark(id),
+        UrlProvider().ticketBookmark(id),
         queryParameters: {'fields': fields},
       );
       return TicketResponse.fromJson(response.data['result']);
@@ -56,7 +56,7 @@ class TicketApiProvider extends BaseApiProvider {
   Future<TicketResponse> removeBookmark({@required String id}) async {
     try {
       await dio.delete(
-        UrlProvider.ticketBookmark(id),
+        UrlProvider().ticketBookmark(id),
       );
       return TicketResponse(null, null);
     } on DioError catch (e) {

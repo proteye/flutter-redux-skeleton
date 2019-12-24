@@ -22,7 +22,7 @@ class AuthApiProvider extends BaseApiProvider {
 
     try {
       final response = await dio.post(
-        UrlProvider.sign,
+        UrlProvider().sign,
         data: {'login': login, 'password': password},
         queryParameters: {'fields': fields},
       );
@@ -38,7 +38,7 @@ class AuthApiProvider extends BaseApiProvider {
   Future<AuthResponse> logout() async {
     try {
       await dio.delete(
-        UrlProvider.sign,
+        UrlProvider().sign,
       );
       return AuthResponse(null, null, null);
     } on DioError catch (e) {
@@ -49,7 +49,7 @@ class AuthApiProvider extends BaseApiProvider {
   Future<UserResponse> profile({String fields}) async {
     try {
       final response = await dio.get(
-        UrlProvider.profile,
+        UrlProvider().profile,
         queryParameters: {'fields': fields},
       );
       return UserResponse.fromJson(response.data['result']);

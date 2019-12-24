@@ -1,49 +1,15 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_thunk/redux_thunk.dart';
-import 'package:redux_logging/redux_logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:flutter_redux_skeleton/src/repository/auth/auth_api_provider.dart';
-import 'package:flutter_redux_skeleton/src/repository/auth/auth_storage_provider.dart';
 import 'package:flutter_redux_skeleton/src/repository/auth/repository.dart';
 import 'package:flutter_redux_skeleton/src/repository/ticket/ticket_api_provider.dart';
 import 'package:flutter_redux_skeleton/src/repository/ticket/repository.dart';
 import 'package:flutter_redux_skeleton/src/store/app/app_state.dart';
-import 'package:flutter_redux_skeleton/src/store/app/app_reducer.dart';
-import 'package:flutter_redux_skeleton/src/store/auth/store.dart';
-import 'package:flutter_redux_skeleton/src/utils/app_logger.dart';
 import 'package:flutter_redux_skeleton/src/utils/app_router.dart';
-import 'package:flutter_redux_skeleton/src/utils/http.dart';
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  AppLogger()..isDebug = true;
-
-  final store = Store<AppState>(
-    appStateReducer,
-    initialState: AppState.initial(),
-    middleware: [thunkMiddleware, LoggingMiddleware.printer()],
-  );
-
-  SharedPreferences.getInstance().then((prefs) {
-    // init dio params and headers
-    Http()..init(store, prefs);
-    // init auth repository
-    final authRepository = AuthRepository(
-      AuthStorageProvider(prefs),
-      AuthApiProvider(),
-    );
-    // remind user session
-    store.dispatch(remind(authRepository));
-
-    runApp(App(store: store, authRepository: authRepository));
-  });
-}
 
 class App extends StatefulWidget {
   final Store store;
@@ -109,7 +75,7 @@ class _AppState extends State<App> {
           Provider<TicketRepository>.value(value: ticketRepository),
         ],
         child: MaterialApp(
-          title: 'Flutter Redux Example',
+          title: 'Flutter Redux Skeleton',
           theme: ThemeData(),
           initialRoute: AppRouter.homeRoute,
           routes: AppRouter.routes(),

@@ -10,3 +10,57 @@ Flutter and Redux skeleton mobile application.
 - authorization
 - unit tests
 - list and detail screen for example
+
+## Run:
+- ### Production
+    ```
+    flutter run --target lib/main_production --flavor production
+    ```
+- ### Development
+    ```
+    flutter run --target lib/main_development --flavor development
+    ```
+- ### Development-Production
+    ```
+    flutter run --target lib/main_devp --flavor devp
+    ```
+
+## VS Code configuring
+Please, create ./.vscode/launch.json configuration file and put it the next code:
+```
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dev",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--flavor",
+                "development"
+            ]
+        },
+        {
+            "name": "DevP",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main_devp.dart",
+            "args": [
+                "--flavor",
+                "devp"
+            ]
+        },
+        {
+            "name": "Prod",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main_production.dart",
+            "args": [
+                "--flavor",
+                "production"
+            ]
+        }
+    ]
+}
+```
